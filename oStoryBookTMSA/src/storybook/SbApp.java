@@ -251,6 +251,14 @@ public class SbApp extends Component {
 			error("SbApp.renameFile("+mainFrame.getName()+","+file.getName()+")", e);
 		}
 	}
+	
+	public boolean openTextFile(){
+		trace("SbApp.openTextFile()");
+		final File importFile = BookUtil.openTextDialog();
+		if(importFile == null)
+			return false;
+		return true; // TODO: Change this to run parser function class.functionForParser(file)
+	}
 
 	public boolean openFile() {
 		trace("SbApp.openFile()");
