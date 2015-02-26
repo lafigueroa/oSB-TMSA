@@ -34,6 +34,7 @@ import storybook.model.hbn.dao.InternalDAOImpl;
 import storybook.model.hbn.entity.Internal;
 import storybook.model.hbn.entity.Preference;
 import storybook.toolkit.filefilter.H2FileFilter;
+import storybook.toolkit.filefilter.TextFileFilter;
 import storybook.ui.MainFrame;
 
 /**
@@ -167,18 +168,36 @@ public class BookUtil {
 		H2FileFilter filter = new H2FileFilter();
 		fc.addChoosableFileFilter(filter);
 		fc.setFileFilter(filter);
-		int ret = fc.showOpenDialog(null);
+		File openFile = openDialog(fc);
+		if(openFile != null){
+			DbFile dbFile = new DbFile(openFile);
+			return dbFile;
+		}
+		return null;
+	}
+	
+	public static File openTextDialog(){
+		final JFileChooser fc = new JFileChooser();
+		Preference pref = PrefUtil.get(PreferenceKey.LAST_OPEN_DIR, getHomeDir());
+		fc.setCurrentDirectory(new File(pref.getStringValue()));
+		TextFileFilter filter = new TextFileFilter();
+		fc.addChoosableFileFilter(filter);
+		fc.setFileFilter(filter);
+		return openDialog(fc);
+	}
+	
+	public static File openDialog(JFileChooser fileChooser){
+		int ret = fileChooser.showOpenDialog(null);
 		if (ret == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
+			File file = fileChooser.getSelectedFile();	
 			if (!file.exists()) {
 				JOptionPane.showMessageDialog(null,
 						I18N.getMsg("msg.dlg.project.not.exits.text", file),
 						I18N.getMsg("msg.dlg.project.not.exits.title"),
 						JOptionPane.ERROR_MESSAGE);
 				return null;
-			}
-			DbFile dbFile = new DbFile(file);
-			return dbFile;
+			}		
+			return file;
 		}
 		return null;
 	}

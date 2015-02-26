@@ -119,6 +119,7 @@ public class MainMenu extends javax.swing.JFrame {
         fileSave = new javax.swing.JMenuItem();
         fileSaveAs = new javax.swing.JMenuItem();
         fileRename = new javax.swing.JMenuItem();
+        fileCharImport = new javax.swing.JMenuItem();
         fileClose = new javax.swing.JMenuItem();
         separatorFile1 = new javax.swing.JPopupMenu.Separator();
         fileProperties = new javax.swing.JMenuItem();
@@ -610,7 +611,17 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
         menuFile.add(fileRename);
-
+        
+        fileCharImport.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        fileCharImport.setText(bundle.getString("msg.common.import.character")); // NOI18N
+        fileCharImport.setActionCommand("character-import-command"); // not really used anymore?
+        fileCharImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                characterImportActionPerformed(evt);
+            }
+        });
+        menuFile.add(fileCharImport);
+        
         fileClose.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.CTRL_MASK));
         fileClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/storybook/resources/icons/16x16/close.png"))); // NOI18N
         fileClose.setText(bundle.getString("msg.file.close")); // NOI18N
@@ -1497,6 +1508,10 @@ public class MainMenu extends javax.swing.JFrame {
         mainFrame.getSbActionManager().getActionHandler().handleFileRename();
     }//GEN-LAST:event_fileRenameActionPerformed
 
+    private void characterImportActionPerformed(java.awt.event.ActionEvent evt){//GEN-FIRST:event_characterImportActionPerformed	
+    	mainFrame.getSbActionManager().getActionHandler().handleCharacterImport();
+    }//GEN-LAST:event_characterImportActionPerformed
+    
     private void fileCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileCloseActionPerformed
         mainFrame.close();
     }//GEN-LAST:event_fileCloseActionPerformed
@@ -2064,6 +2079,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem filePrint;
     private javax.swing.JMenuItem fileProperties;
     private javax.swing.JMenuItem fileRename;
+    private javax.swing.JMenuItem fileCharImport;
     private javax.swing.JMenuItem fileSave;
     private javax.swing.JMenuItem fileSaveAs;
     private javax.swing.JMenuItem helpAbout;
@@ -2192,7 +2208,7 @@ public class MainMenu extends javax.swing.JFrame {
 		javax.swing.JMenuItem[] submenus={
 			editCopyBlurb, editCopyBook,
 			fileClose, fileExport, filePrint,
-			fileProperties, fileRename, fileSave, fileSaveAs
+			fileProperties, fileRename, fileCharImport, fileSave, fileSaveAs
 		};
 		for (javax.swing.JMenuItem m : submenus) {
 			m.setVisible(false);
