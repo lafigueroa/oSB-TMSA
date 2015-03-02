@@ -116,5 +116,9 @@
 	<classpathentry kind="lib" path="lib/tika-core-0.9.jar"/>
 	<classpathentry kind="lib" path="lib/xjavadoc-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/xml-actions.jar"/>
+	<classpathentry kind="lib" path="stanford-ner-3.5.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="stanford-ner-3.5.1-sources.jar"/>
+	<classpathentry kind="lib" path="stanford-ner-3.5.1.jar"/>
+	<classpathentry kind="lib" path="stanford-ner.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
