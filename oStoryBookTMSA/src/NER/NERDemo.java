@@ -83,12 +83,12 @@ public class NERDemo {
         System.out.println();
       }
 
-      System.out.println("---");
+      System.out.println("---THIS ONE---");
       List<Triple<String, Integer, Integer>> list = classifier.classifyToCharacterOffsets(fileContents);
       for (Triple<String, Integer, Integer> item : list) {
         System.out.println(item.first() + ": " + fileContents.substring(item.second(), item.third()));
       }
-      System.out.println("---");
+      System.out.println("---THIS ONE---");
       System.out.println("Ten best entity labelings");
       DocumentReaderAndWriter<CoreLabel> readerAndWriter = classifier.makePlainTextReaderAndWriter();
       classifier.classifyAndWriteAnswersKBest(args[1], 10, readerAndWriter);
@@ -113,8 +113,8 @@ public class NERDemo {
          assignments and an n-best list of classifications with probabilities.
       */
 
-      String[] example = {"Steven Fox is the person writing this program.",
-                          "He goes to school at Drexel University, which is located in Philadelphia." };
+      String[] example = {"Steven and Jason Richard are the people writing this program.",
+                          "They goes to school at Drexel University, which is located in Philadelphia." };
       for (String str : example) {
         System.out.println(classifier.classifyToString(str));
       }
@@ -137,12 +137,12 @@ public class NERDemo {
       for (String str : example) {
         System.out.println(classifier.classifyWithInlineXML(str));
       }
-      System.out.println("---");
+      System.out.println("---THIS ONE");
 
       for (String str : example) {
         System.out.println(classifier.classifyToString(str, "xml", true));
       }
-      System.out.println("---");
+      System.out.println("---THIS ONE");
 /*
       for (String str : example) {
         System.out.print(classifier.classifyToString(str, "tsv", false));
