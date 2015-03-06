@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import storybook.model.hbn.entity.Gender;
 import storybook.model.hbn.entity.Person;
 
 public class PopulationFromFile {
@@ -36,7 +37,7 @@ public class PopulationFromFile {
 	      List<List<CoreLabel>> out = classifier.classify(fileContents);
 	      List<Triple<String, Integer, Integer>> list = classifier.classifyToCharacterOffsets(fileContents);
 	      for (Triple<String, Integer, Integer> item : list) {
-	        System.out.println(item.first() + ": " + fileContents.substring(item.second(), item.third()));
+	        generatePerson(fileContents, item);
 	      }
 	}
 	
@@ -75,8 +76,19 @@ public class PopulationFromFile {
 			//get gender
 		}
 		
-		Person p = new Person();
-		//Assign attributes
+		Person person = new Person();
+		Gender g = new Gender();
+		long maleId = 1; //Had to look this up in the gender class
+		long femaleId = 2;
+		if(gender == "male"){
+			g.setId(maleId);
+		} else {
+			g.setId(femaleId);
+		}
+		person.setFirstname(firstname);
+		person.setLastname(lastname);
+		person.setGender(g);
+		persons.add(person);
 	}
 	
 	public Vector<Person> getPopulation() {
