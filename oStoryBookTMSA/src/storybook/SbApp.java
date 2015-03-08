@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//This is a line that Steve added! :D
+// Tom was here
 
 package storybook;
 
@@ -252,6 +252,14 @@ public class SbApp extends Component {
 		} catch (IOException e) {
 			error("SbApp.renameFile("+mainFrame.getName()+","+file.getName()+")", e);
 		}
+	}
+	
+	public boolean openTextFile(){
+		trace("SbApp.openTextFile()");
+		final File importFile = BookUtil.openTextDialog();
+		if(importFile == null)
+			return false;
+		return true; // TODO: Change this to run parser function class.functionForParser(file)
 	}
 
 	public boolean openFile() {

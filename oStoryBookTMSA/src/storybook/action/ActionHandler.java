@@ -473,6 +473,10 @@ public class ActionHandler {
 		OpenFileAction act = new OpenFileAction("", dbFile);
 		act.actionPerformed(null);
 	}
+	
+	public void handleCharacterImport(){
+		SbApp.getInstance().openTextFile();
+	}
 
 	public void handleFileRename() {
 		RenameFileDialog dlg = new RenameFileDialog(mainFrame);
