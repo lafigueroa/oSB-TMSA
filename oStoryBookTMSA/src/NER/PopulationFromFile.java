@@ -17,17 +17,36 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.github.irobson.jgenderize.GenderizeIoAPI;
+import com.github.irobson.jgenderize.client.Genderize;
+import com.github.irobson.jgenderize.model.NameGender;
+
 import storybook.model.hbn.entity.Gender;
 import storybook.model.hbn.entity.Person;
 
+/*
+ * PopulationFromFile accepts a file and you can optionally specify a classifer to use.
+ * It reads and analyzes the file and returns a vector of unique persons found in the file.
+ * Each of these persons is populated with a first and last name and a gender.
+ */
 public class PopulationFromFile {
 
 	private String file;
-	private String serializedClassifier = "classifiers/english.all.3class.distsim.crf.ser.gz"; //Default Classifier
-	private Vector<Person> persons;
+	private String serializedClassifier; //Default Classifier
+	private Vector<Person> persons = new Vector<Person>();
+	private Genderize api = GenderizeIoAPI.create();
+	
+	public PopulationFromFile(){}
 	
 	public PopulationFromFile(String file) throws Exception {
 		this.file = file;
+		this.serializedClassifier = "classifiers/english.all.3class.distsim.crf.ser.gz";
+		readfile();
+	}
+	
+	public PopulationFromFile(String file, String classifier) throws Exception {
+		this.file = file;
+		this.serializedClassifier = classifier;
 		readfile();
 	}
 	
@@ -37,7 +56,9 @@ public class PopulationFromFile {
 	      List<List<CoreLabel>> out = classifier.classify(fileContents);
 	      List<Triple<String, Integer, Integer>> list = classifier.classifyToCharacterOffsets(fileContents);
 	      for (Triple<String, Integer, Integer> item : list) {
-	        generatePerson(fileContents, item);
+	    	if(item.first().equals("PERSON")) {
+	    		generatePerson(fileContents, item);
+	    	}
 	      }
 	}
 	
@@ -48,47 +69,94 @@ public class PopulationFromFile {
 		boolean found = matcher.find();
 		String firstname = null;
 		String lastname = null;
-		String gender = null;
+		
 		if(found) { //If the string has spaces then parse it for first and last name
 			String[] splited = fullname.split("\\s+");
 			int size = splited.length;
 			switch(size){
-			case 2: //Just a first and last name
+			case 1: //Just a first and last name
 				firstname = splited[0];
 				lastname = splited[1];
-				
-				//Call genderize on first name
-				//Return gender
-			case 3: //First, middle, and last name
+			case 2: //First, middle, and last name
 				firstname = splited[0];
-				lastname = splited[2];
-				//Call genderize on first name
-				//return gender
-			default:
+				lastname = splited[1];
+			default: 
+				/*
+				 * Some number of names just take the first and last ones if there is no Jr. or Sr. involved
+				 * if there is take the next to last part of the split string
+				 */
 				firstname = splited[0];
-				lastname = splited[splited.length - 1];
-				//Just take first name and the last one
-				//return gender
+				if(hasTitle(fullname)){
+					lastname = splited[splited.length - 2];
+				} else {
+					lastname = splited[splited.length - 1];
+				}
 			}	
 		} else { //If it's just the first name then get the gender
 			firstname = fullname;
-			//Call generize on the first name
-			//get gender
 		}
 		
 		Person person = new Person();
-		Gender g = new Gender();
-		long maleId = 1; //Had to look this up in the gender class
-		long femaleId = 2;
-		if(gender == "male"){
-			g.setId(maleId);
-		} else {
-			g.setId(femaleId);
-		}
+		Gender g = new Gender(); //Storybook gender object
+		g.setId(determineGender(firstname));
+		/*
+		System.out.println("firstname: " + firstname);
+		System.out.println("male?: " + g.getId());
+		System.out.println("lastname: " + lastname + "\n");
+		*/
 		person.setFirstname(firstname);
 		person.setLastname(lastname);
 		person.setGender(g);
-		persons.add(person);
+		if(!isPresent(person)) {
+			persons.add(person);	
+		}
+	}
+	
+	/*
+	 * Checks the person vector to confirm that the person has not already been added
+	 * -Checks full name
+	 * -Checks gender
+	 */
+	
+	private boolean isPresent(Person person) {
+		for(int i = 0; i < persons.size(); i++) {
+			if(person.getFullName().equals(persons.get(i).getFullName())) { //If the name is the same...
+				if(person.getGender().isFemale() == persons.get(i).getGender().isFemale()) { //and the gender is the same
+					return true; //then it's the same person
+				}
+			}
+		}
+		return false;
+	}
+	
+	/*
+	 * In oStoryBook a gender object's id attr of 1 means the gender is Male
+	 * while 2 means that the gender is Female. This is why the function returns 1 or 2.
+	 */
+	private long determineGender(String firstname) {
+		NameGender gender = null; //Jgenderize gender object 
+		gender = api.getGender(firstname);
+		//If we allowed for more genders, use a switch case here
+		if(gender.isMale()) {
+			return (long) 1;
+		} else {
+			return (long) 2;
+		}
+	}
+	
+	/*
+	 * Checks specifically for Jr. and Sr. titles
+	 * NER will not pick up the . in "Jr." or "Sr." taking a chance with Jr and Sr, but
+	 * english names don't commonly have names that start with Jr or Sr...
+	 * Note: Can be expanded to allow for more title checking
+	 */
+	private boolean hasTitle(String fullname) {
+		if(fullname.contains("Jr") || fullname.contains("Sr")) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 	
 	public Vector<Person> getPopulation() {
@@ -97,5 +165,17 @@ public class PopulationFromFile {
 	
 	public void setFile(String file){
 		this.file = file;
+	}
+	
+	/*
+	 * For testing
+	 */
+	public void printPersons() {
+		for(int i =0; i < persons.size(); i++) {
+			System.out.println("-------------");
+			System.out.println("Firstname: " + persons.get(i).getFirstname());
+			System.out.println("Lastname: " + persons.get(i).getLastname());
+			System.out.println("Is male?: " + persons.get(i).getGender().isMale());
+		}
 	}
 }
