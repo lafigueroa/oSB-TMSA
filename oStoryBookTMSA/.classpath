@@ -115,12 +115,10 @@
 	<classpathentry kind="lib" path="lib/tika-core-0.9.jar"/>
 	<classpathentry kind="lib" path="lib/xjavadoc-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/xml-actions.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Tomas/.m2/repository/junit/junit/4.10/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Tomas/.m2/repository/javax/ws/rs/javax.ws.rs-api/2.0.1/javax.ws.rs-api-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/hamcrest-core-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/jersey-client-2.15.jar"/>
 	<classpathentry kind="lib" path="lib/jersey-common-2.15.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
@@ -130,5 +128,11 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/piano_000/Documents/GitHub/oSB-TMSA/oStoryBookTMSA/lib/javax.ws.rs-api-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/piano_000/Documents/GitHub/oSB-TMSA/oStoryBookTMSA/lib/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/piano_000/Documents/GitHub/oSB-TMSA/oStoryBookTMSA/stanford-ner.jar"/>
+	<classpathentry kind="lib" path="C:/Users/piano_000/Documents/GitHub/oSB-TMSA/oStoryBookTMSA/stanford-ner-3.5.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/piano_000/Documents/GitHub/oSB-TMSA/oStoryBookTMSA/stanford-ner-3.5.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/piano_000/Documents/GitHub/oSB-TMSA/oStoryBookTMSA/stanford-ner-3.5.1-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
