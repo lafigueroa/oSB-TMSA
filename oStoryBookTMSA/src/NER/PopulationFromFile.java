@@ -60,6 +60,7 @@ public class PopulationFromFile {
 	    		generatePerson(fileContents, item);
 	    	}
 	      }
+	      removeDuplicates();
 	}
 	
 	protected void generatePerson(String fileContents, Triple<String, Integer, Integer> item) {
@@ -125,8 +126,34 @@ public class PopulationFromFile {
 					return true; //then it's the same person
 				}
 			}
+			//NER tends to recognize last names as a person, this will catch that, ie. "Mr. Potter"
+			if(person.getFirstname().equals(persons.get(i).getLastname())) {
+				return true;
+			}
 		}
 		return false;
+	}
+	
+	/*
+	 * Check each entry against all others, if it's:
+	 * Not the same entry AND
+	 * If the first name is the same as the last name of another entry OR
+	 * If the first name is the same as the first name of another entry THEN
+	 * mark it for removal 
+	 */
+	private void removeDuplicates() {
+		Vector<Integer> removeSet = new Vector<Integer>();
+		for(int i = 0; i < persons.size(); i++) {
+			for(int j = 0; j < persons.size(); j++) {
+				if(((i != j) && (persons.get(i).getLastname() == "") && (persons.get(i).getFirstname().equals(persons.get(j).getFirstname())) || (persons.get(i).getFirstname().equals(persons.get(j).getLastname())))){
+					removeSet.add(i);
+				}
+			}
+		}
+		
+		for(int k = removeSet.size(); k > 0; k--) { //Remove from the back forward
+			persons.remove((int) removeSet.get(k-1));
+		}
 	}
 	
 	/*

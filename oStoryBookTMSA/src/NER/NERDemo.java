@@ -14,6 +14,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import com.github.irobson.jgenderize.GenderizeIoAPI;
+import com.github.irobson.jgenderize.client.Genderize;
+import com.github.irobson.jgenderize.model.NameGender;
+
 
 /** This is a demo of calling CRFClassifier programmatically.
  *  <p>
