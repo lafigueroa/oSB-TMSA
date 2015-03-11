@@ -276,7 +276,7 @@ public class SbApp extends Component {
 			mainFrames.get(0).getBookController().newPerson(people.get(i));
 		}
 		
-		return true;
+		return true; // TODO: Change this to run parser function class.functionForParser(file)
 	}
 
 	public boolean openFile() {

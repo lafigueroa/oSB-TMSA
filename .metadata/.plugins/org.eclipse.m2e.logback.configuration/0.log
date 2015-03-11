@@ -121,3 +121,17 @@ org.eclipse.jdt.core.JavaModelException: bin/storybook/ui [in oStoryBookTMSA] is
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:648) [org.eclipse.equinox.launcher_1.3.0.v20140415-2008.jar:na]
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603) [org.eclipse.equinox.launcher_1.3.0.v20140415-2008.jar:na]
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465) [org.eclipse.equinox.launcher_1.3.0.v20140415-2008.jar:na]
+2015-03-11 01:55:22,772 [Worker-0] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: irobson:jgenderize:1.1 @ C:\Users\Ruoyun\Documents\GitHub\oSB-TMSA\oStoryBookTMSA\pom.xml.
+2015-03-11 01:55:23,749 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-03-11 01:55:23,749 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Ruoyun\Documents\GitHub\oSB-TMSA\oStoryBookTMSA\src\main\resources
+2015-03-11 01:55:23,753 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-03-11 01:55:23,753 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Ruoyun\Documents\GitHub\oSB-TMSA\oStoryBookTMSA\src\test\resources
+2015-03-11 01:55:33,150 [Worker-1] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: irobson:jgenderize:1.1 @ C:\Users\Ruoyun\Documents\GitHub\oSB-TMSA\oStoryBookTMSA\pom.xml.
+2015-03-11 01:55:33,770 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-03-11 01:55:33,771 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Ruoyun\Documents\GitHub\oSB-TMSA\oStoryBookTMSA\src\main\resources
+2015-03-11 01:55:33,773 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-03-11 01:55:33,773 [Worker-1] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Ruoyun\Documents\GitHub\oSB-TMSA\oStoryBookTMSA\src\test\resources
+2015-03-11 13:43:36,877 [Worker-79] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-03-11 13:43:36,920 [Worker-79] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Ruoyun\Documents\GitHub\oSB-TMSA\oStoryBookTMSA\src\main\resources
+2015-03-11 13:43:36,923 [Worker-79] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-03-11 13:43:36,923 [Worker-79] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Ruoyun\Documents\GitHub\oSB-TMSA\oStoryBookTMSA\src\test\resources
