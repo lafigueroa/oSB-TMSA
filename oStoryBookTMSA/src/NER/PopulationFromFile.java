@@ -100,7 +100,12 @@ public class PopulationFromFile {
 		Person person = new Person();
 		Gender g = new Gender(); //Storybook gender object
 		g.setId(determineGender(firstname));
-		
+		String abbr = null;
+		if(lastname != null) {
+			abbr = firstname.substring(0,2) + lastname.substring(0,2);
+		} else {
+			abbr = firstname.substring(0,2);
+		}
 		/*
 		System.out.println("firstname: " + firstname);
 		System.out.println("male?: " + g.getId());
@@ -109,6 +114,8 @@ public class PopulationFromFile {
 		person.setFirstname(firstname);
 		person.setLastname(lastname);
 		person.setGender(g);
+		person.setAbbreviation(abbr);
+		
 		if(!isPresent(person)) {
 			persons.add(person);	
 		}
