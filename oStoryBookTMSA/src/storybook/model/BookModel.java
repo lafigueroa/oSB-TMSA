@@ -1353,4 +1353,8 @@ public class BookModel extends AbstractModel {
 			setDeleteInternal(old);
 		}
 	}
+	
+	public MainFrame getMainframe() {
+		return this.mainFrame;
+	}
 }

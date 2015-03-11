@@ -38,6 +38,7 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -46,12 +47,14 @@ import javax.swing.plaf.FontUIResource;
 
 import org.apache.commons.io.FileUtils;
 
+import NER.PopulationFromFile;
 import storybook.SbConstants.BookKey;
 import storybook.SbConstants.PreferenceKey;
 import storybook.action.OpenFileAction;
 import storybook.controller.PreferenceController;
 import storybook.model.DbFile;
 import storybook.model.PreferenceModel;
+import storybook.model.hbn.entity.Person;
 import storybook.model.hbn.entity.Preference;
 import storybook.model.oldModel.ModelMigration;
 import storybook.toolkit.BookUtil;
@@ -259,6 +262,20 @@ public class SbApp extends Component {
 		final File importFile = BookUtil.openTextDialog();
 		if(importFile == null)
 			return false;
+		
+		PopulationFromFile p = null;
+		try {
+			p = new PopulationFromFile(importFile.getName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Vector<Person> people = new Vector<Person>();
+		people = p.getPopulation();
+		for(int i = 0; i < people.size(); i++) {
+			mainFrames.get(0).getBookController().newPerson(people.get(i));
+		}
+		
 		return true; // TODO: Change this to run parser function class.functionForParser(file)
 	}
 

@@ -31,8 +31,8 @@ import storybook.model.hbn.entity.Person;
  */
 public class PopulationFromFile {
 
-	private String file;
-	private String serializedClassifier; //Default Classifier
+	private String file = null;
+	private String serializedClassifier = null; //Default Classifier
 	private Vector<Person> persons = new Vector<Person>();
 	private Genderize api = GenderizeIoAPI.create();
 	
@@ -100,6 +100,7 @@ public class PopulationFromFile {
 		Person person = new Person();
 		Gender g = new Gender(); //Storybook gender object
 		g.setId(determineGender(firstname));
+		
 		/*
 		System.out.println("firstname: " + firstname);
 		System.out.println("male?: " + g.getId());
