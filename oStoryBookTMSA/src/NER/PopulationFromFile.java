@@ -98,26 +98,23 @@ public class PopulationFromFile {
 		}
 		
 		Person person = new Person();
-		Gender g = new Gender(); //Storybook gender object
-		g.setId(determineGender(firstname));
+		person.setFirstname(firstname);
+		person.setLastname(lastname);
 		String abbr = null;
 		if(lastname != null) {
 			abbr = firstname.substring(0,2) + lastname.substring(0,2);
 		} else {
 			abbr = firstname.substring(0,2);
 		}
-		/*
-		System.out.println("firstname: " + firstname);
-		System.out.println("male?: " + g.getId());
-		System.out.println("lastname: " + lastname + "\n");
-		*/
-		person.setFirstname(firstname);
-		person.setLastname(lastname);
-		person.setGender(g);
 		person.setAbbreviation(abbr);
 		
-		if(!isPresent(person)) {
-			persons.add(person);	
+		if(isPresent(firstname, lastname)) {
+			//If this person is already there, don't bother calling genderize or adding the person
+		} else {
+			Gender g = new Gender(); //Storybook gender object
+			g.setId(determineGender(firstname));
+			person.setGender(g);
+			persons.add(person);
 		}
 	}
 	
@@ -127,15 +124,12 @@ public class PopulationFromFile {
 	 * -Checks gender
 	 */
 	
-	private boolean isPresent(Person person) {
+	private boolean isPresent(String firstname, String lastname) {
 		for(int i = 0; i < persons.size(); i++) {
-			if(person.getFullName().equals(persons.get(i).getFullName())) { //If the name is the same...
-				if(person.getGender().isFemale() == persons.get(i).getGender().isFemale()) { //and the gender is the same
-					return true; //then it's the same person
-				}
+			if(firstname.equals(persons.get(i).getFirstname())) { //If the name is the same...
+				return true;
 			}
-			//NER tends to recognize last names as a person, this will catch that, ie. "Mr. Potter"
-			if(person.getFirstname().equals(persons.get(i).getLastname())) {
+			if(firstname.equals(persons.get(i).getLastname())) {
 				return true;
 			}
 		}
@@ -200,6 +194,10 @@ public class PopulationFromFile {
 	
 	public void setFile(String file){
 		this.file = file;
+	}
+	
+	public void setClassifer(String classifier) {
+		this.serializedClassifier = classifier;
 	}
 	
 	/*
